@@ -1,0 +1,8 @@
+[Public]
+Object=(Name=PingLogger.PingLogger,Class=Class,MetaClass=UMenu.UMenuModMenuItem,description="PingLogger")
+Object=(Name=PingLogger.PingLoggerMut,Class=Class,MetaClass=Engine.Mutator,Description="PingLoggerMut,<Insert description here>")
+
+[PingLogger]
+MenuCaption="&PingLogger"
+MenuHelp=""
+
