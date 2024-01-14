@@ -40,6 +40,8 @@ simulated function Initialize() {
 }
 
 simulated function Tick(float Delta) {
+    local float AdjLocAlpha;
+
     super.Tick(Delta);
 
     if (Level.NetMode != NM_Client) {
@@ -78,8 +80,11 @@ simulated function Tick(float Delta) {
                 SetPropertyText("Offset", PlayerOwner.GetPropertyText("AdjustLocationOffset"));
             break;
         case OSRC_IGPlus:
-            if (bIGPlusInputReplication || float(PlayerOwner.GetPropertyText("IGPlus_AdjustLocationAlpha")) > 0.0)
+            AdjLocAlpha = float(PlayerOwner.GetPropertyText("IGPlus_AdjustLocationAlpha"));
+            if (bIGPlusInputReplication || AdjLocAlpha > 0.0)
                 SetPropertyText("Offset", PlayerOwner.GetPropertyText("IGPlus_AdjustLocationOffset"));
+            if (AdjLocAlpha > 0.0)
+                Offset *= AdjLocAlpha;
             break;
     }
 
