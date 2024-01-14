@@ -128,8 +128,6 @@ final static function string PadTo2Digits(int A) {
 }
 
 final static function string SafeFileName(string FileName) {
-    local string Result;
-
     FileName = Replace(FileName, ":", "_");
     FileName = Replace(FileName, ";", "_");
     FileName = Replace(FileName, "?", "");
@@ -142,7 +140,7 @@ final static function string SafeFileName(string FileName) {
     FileName = Replace(FileName, ">", "");
     FileName = Replace(FileName, " ", "_");
 
-    return Result;
+    return FileName;
 }
 
 final static function string Replace(string Haystack, string Needle, string Substitute) {
