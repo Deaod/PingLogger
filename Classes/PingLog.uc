@@ -40,7 +40,7 @@ function SetEncoding() {
         EngineRevision = Left(EngineRevision, InStr(EngineRevision, " "));
 
         if (Len(EngineRevision) > 0 && EngineRevision != "a" && EngineRevision != "b") {
-            SetPropertyText("Encoding", "FILE_ENCODING_UTF8");
+            SetPropertyText("Encoding", "FILE_ENCODING_UTF8_BOM");
         }
     }
 }
