@@ -17,6 +17,7 @@ enum EOffsetSource {
 var EOffsetSource OffsetSource;
 
 simulated function Initialize() {
+    local string FileName;
     Logger = Spawn(class'PingLog');
 
     if (PlayerOwner.IsA('bbPlayer') && PlayerOwner.GetPropertyText("IGPlus_AdjustLocationOffset") != "") {
@@ -29,6 +30,12 @@ simulated function Initialize() {
     }
 
     Logger.bUseOffset = (OffsetSource > OSRC_436);
+    FileName = "Ping";
+    FileName = FileName$"_"$SafeFileName(PlayerOwner.PlayerReplicationInfo.PlayerName);
+    FileName = FileName$"_"$Level.Year$PadTo2Digits(Level.Month)$PadTo2Digits(Level.Day)$"_"$PadTo2Digits(Level.Hour)$PadTo2Digits(Level.Minute);
+    FileName = FileName$"_"$Outer.Name; // this name is based on a valid file name
+    FileName = FileName$"_"$SafeFileName(Level.GetAddressURL());
+    Logger.FileName = FileName;
     Logger.StartLog();
 }
 
@@ -107,6 +114,46 @@ simulated function Destroyed() {
         Logger = none;
     }
     super.Destroyed();
+}
+
+final static function string PadTo2Digits(int A) {
+    if (A < 10)
+        return "0"$A;
+    return string(A);
+}
+
+final static function string SafeFileName(string FileName) {
+    local string Result;
+
+    FileName = Replace(FileName, ":", "_");
+    FileName = Replace(FileName, ";", "_");
+    FileName = Replace(FileName, "?", "");
+    FileName = Replace(FileName, "/", "");
+    FileName = Replace(FileName, "\\", "");
+    FileName = Replace(FileName, "|", "");
+    FileName = Replace(FileName, "*", "");
+    FileName = Replace(FileName, "\"", "");
+    FileName = Replace(FileName, "<", "");
+    FileName = Replace(FileName, ">", "");
+    FileName = Replace(FileName, " ", "_");
+
+    return Result;
+}
+
+final static function string Replace(string Haystack, string Needle, string Substitute) {
+    local int Pos, NeedleLen;
+    local string Result;
+
+    NeedleLen = Len(Needle);
+    Pos = InStr(Haystack, Needle);
+    while(Pos >= 0) {
+        Result = Result $ Left(Haystack, Pos) $ Substitute;
+
+        Haystack = Mid(HayStack, Pos + NeedleLen);
+        Pos = InStr(Haystack, Needle);
+    }
+
+    return Result $ Haystack;
 }
 
 defaultproperties {
