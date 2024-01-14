@@ -15,7 +15,7 @@ function StartLog() {
     local string FilePath;
 
     bWorld = false;
-    FileName = "../Logs/"$FileName;
+    FilePath = "../Logs/"$FileName;
     StatLogFile = FilePath$".tmp.csv";
     StatLogFinal = FilePath$".csv";
 
