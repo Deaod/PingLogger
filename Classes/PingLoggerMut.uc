@@ -32,7 +32,7 @@ simulated function Initialize() {
     Logger.bUseOffset = (OffsetSource > OSRC_436);
     FileName = "Ping";
     FileName = FileName$"_"$SafeFileName(PlayerOwner.PlayerReplicationInfo.PlayerName);
-    FileName = FileName$"_"$Level.Year$PadTo2Digits(Level.Month)$PadTo2Digits(Level.Day)$"_"$PadTo2Digits(Level.Hour)$PadTo2Digits(Level.Minute);
+    FileName = FileName$"_"$Level.Year$PadTo2Digits(Level.Month)$PadTo2Digits(Level.Day)$"_"$PadTo2Digits(Level.Hour)$PadTo2Digits(Level.Minute)$PadTo2Digits(Level.Second);
     FileName = FileName$"_"$Outer.Name; // this name is based on a valid file name
     FileName = FileName$"_"$SafeFileName(Level.GetAddressURL());
     Logger.FileName = FileName;
